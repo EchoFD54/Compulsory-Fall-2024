@@ -1,0 +1,14 @@
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\bin\Debug\net8.0\DataAccess.deps.json
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\bin\Debug\net8.0\DataAccess.dll
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\bin\Debug\net8.0\DataAccess.pdb
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfo.cs
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.dll
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\refint\DataAccess.dll
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.pdb
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\bin\Debug\net8.0\DataAccess.runtimeconfig.json
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.csproj.AssemblyReference.cache
+C:\Users\aaron\OneDrive\Escritorio\EASV\3rd Semester\Programming 2\Compulsory\Compulsory-Fall-2024\server\DataAccess\obj\Debug\net8.0\DataAccess.genruntimeconfig.cache

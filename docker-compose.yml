@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: veneco
+      POSTGRES_PASSWORD: 5432
+      POSTGRES_DB: DunderMifflinDb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  backend:
