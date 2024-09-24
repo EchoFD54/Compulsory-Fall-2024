@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.8" PrivateAssets="all" />
   </ItemGroup>
 
   <PropertyGroup>

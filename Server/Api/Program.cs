@@ -1,4 +1,8 @@
 //using Service;
+using DataAccess.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,7 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddScoped<ProductService>();
+
+//db context
+builder.Services.AddDbContext<AppDbContext>(Options =>
+Options.UseNpgsql(builder.Configuration.GetConnectionString("DbConnectionString")));
+
+//repository and service
+builder.Services.AddScoped<IAppRepository, AppRepository>();
+builder.Services.AddScoped<IAppService, AppService>();
 
 builder.Services.AddCors(options =>
 {
@@ -32,9 +43,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowReactApp");
 app.UseRouting();
 app.MapControllers();
-app.UseCors("AllowReactApp");
+
 
 
 
