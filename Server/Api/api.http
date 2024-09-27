@@ -12,3 +12,55 @@ Content-Type: application/json
     "name": "papel3",
     "price": "1500.0"
 }
+
+###
+
+GET {{api_HostAddress}}/api/customer/
+Accept: application/json
+
+###
+
+POST http://localhost:5248/api/customer
+Content-Type: application/json
+
+{
+    "name": "Juan",
+    "address": "Bogota",
+    "phone": "3223666896",
+    "email": "eljijijaja@gmail.com"
+}
+
+###
+
+GET {{api_HostAddress}}/api/order/
+Accept: application/json
+
+###
+
+GET {{api_HostAddress}}/api/order/
+Accept: application/json
+
+###
+
+POST http://localhost:5248/api/order
+Content-Type: application/json
+
+{
+    "customerId": 3,
+    "status": "pending",
+    "orderEntries": [
+        {
+            "productId": 5,
+            "quantity": 5
+        }
+    ]
+}
+
+###
+
+GET {{api_HostAddress}}/api/order/customers/3/
+Content-Type: application/json
+
+###
+
+

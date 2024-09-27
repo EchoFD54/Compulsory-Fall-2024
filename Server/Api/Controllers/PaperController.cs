@@ -19,4 +19,19 @@ public class PaperController(IAppService appService) : ControllerBase{
         return Ok(papers);
     }
 
+    
+    [HttpPut]
+    [Route("{id}/discontinue")]
+    public ActionResult<PaperDto> DiscontinuePaper(int id) {
+        var paper = appService.DiscontinuePaper(id);
+        return Ok(paper);
+    }
+
+    [HttpPut]
+    [Route("{id}/restock")]
+    public ActionResult<PaperDto> RestockPaper(int id, [FromBody] int newStock) {
+        var paper = appService.RestockPaper(id, newStock);
+        return Ok(paper);
+    }
+
 }
