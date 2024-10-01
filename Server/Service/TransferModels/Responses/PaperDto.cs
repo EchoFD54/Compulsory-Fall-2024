@@ -8,6 +8,8 @@ public class PaperDto{
             Discontinued = paper.Discontinued,
             Stock = paper.Stock,
             Price = paper.Price,
+            Properties = paper.Properties
+
 
         };
     }
@@ -21,4 +23,6 @@ public class PaperDto{
     public double Price { get; set; }
 
     public int Id{get; set;}
+
+    public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
 }

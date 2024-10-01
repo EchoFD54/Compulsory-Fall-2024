@@ -16,6 +16,10 @@ public interface IAppService{
     public List<Order> GetAllOrders();
     public List<OrderDto> GetOrdersByCustomerId(int customerId);
 
+    public PropertyDto CreateProperty (CreatePropertyDto createPropertyDto);
+     public List<Property> GetAllProperties();
+
+
 
 }
 
@@ -110,6 +114,27 @@ public class AppService(
         var property = createPropertyDto.ToProperty();
         Property newProperty = appRepository.CreateProperty(property);
         return new PropertyDto().FromEntity(newProperty);
-
     }
+
+    public List<Property> GetAllProperties(){
+        return appRepository.GetAllProperties().ToList();
+    }
+
+    public void AssignPropertyToPaper(int paperId, int propertyId)
+    {
+        var paper = appRepository.GetPaperById(paperId);
+        var property = appRepository.GetPropertyById(propertyId);
+
+        if (paper == null || property == null)
+        {
+            throw new Exception("Invalid paper or property ID.");
+        }
+
+        paper.Properties.Add(property);
+        appRepository.Updatepaper(paper);
+    }
+
+
+
+    
 }

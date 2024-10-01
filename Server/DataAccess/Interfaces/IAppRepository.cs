@@ -25,11 +25,7 @@ public interface IAppRepository{
     //Properties
     public Property CreateProperty(Property property);
     public List<Property> GetAllProperties();
-    public Property GetPropertyById(int? propertyId);
-
-
-
-
-
+    public Property? GetPropertyById(int? propertyId);
+    public Property AddPropertyToPaper(int paperId, string propertyName, int propertyId);
     
-}
+    }

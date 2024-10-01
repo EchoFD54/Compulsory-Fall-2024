@@ -62,6 +62,8 @@ const PaperList: React.FC = () => {
 
     const handleRestock = async (paperId: number, stock: number) => {
         try {
+            //swagger-typescritpt-api
+            //day3-4
             const response = await fetch(`https://localhost:7246/api/paper/${paperId}/restock`, {
                 method: 'PUT',
                 headers: {

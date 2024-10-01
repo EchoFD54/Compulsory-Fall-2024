@@ -64,7 +64,7 @@ public class AppRepository(AppDbContext context) : IAppRepository{
 
     public Paper? GetPaperById(int? paperId)
     {
-        return context.Papers.FirstOrDefault(p => p.Id == paperId);
+         return context.Papers.Include(p => p.Properties).FirstOrDefault(p => p.Id == paperId);
     }
 
     public void Updatepaper(Paper paper)
@@ -78,6 +78,7 @@ public class AppRepository(AppDbContext context) : IAppRepository{
        existingPaper.Discontinued = paper.Discontinued;
        existingPaper.Stock = paper.Stock;
        existingPaper.Price = paper.Price;
+       existingPaper.Properties = paper.Properties;
 
        context.Papers.Update(existingPaper);
        context.SaveChanges();
@@ -100,9 +101,9 @@ public class AppRepository(AppDbContext context) : IAppRepository{
         return [.. context.Properties];
     }
 
-    public Property GetPropertyById(int? propertyId)
+    public Property? GetPropertyById(int? propertyId)
     {
-        throw new NotImplementedException();
+        return context.Properties.Include(p => p.Papers).FirstOrDefault(p => p.Id == propertyId);
     }
 
     public Customer? GetCustomerByEmail(string email)
@@ -113,5 +114,20 @@ public class AppRepository(AppDbContext context) : IAppRepository{
     public List<Order> GetOrdersByCustomerId(int customerId)
     {
          return context.Orders.Include(o => o.OrderEntries).ThenInclude(oe => oe.Product).Where(o => o.CustomerId == customerId).ToList();
+    }
+
+    public Property AddPropertyToPaper(int paperId, string propertyName, int propertyId)
+    {
+        var paper = GetPaperById(paperId); // Ensure the paper exists
+    if (paper == null) throw new Exception("Paper not found.");
+
+    var newProperty = new Property
+    {
+        PropertyName = propertyName,
+    };
+
+    context.Properties.Add(newProperty);
+    context.SaveChanges();
+    return newProperty;
     }
 }

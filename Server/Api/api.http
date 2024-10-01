@@ -63,4 +63,18 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:5248/api/property
+Content-Type: application/json
+
+{
+    "PropertyName": "Water-Proof"   
+}
+
+###
+
+GET {{api_HostAddress}}/api/property
+Content-Type: application/json
+
+###
+
 
