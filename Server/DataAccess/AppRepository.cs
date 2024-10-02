@@ -57,15 +57,31 @@ public class AppRepository(AppDbContext context) : IAppRepository{
         throw new NotImplementedException();
     }
 
-    public void UpdateOrderStatus(int orderId, string status)
+    public void UpdateOrder(Order order)
     {
-        throw new NotImplementedException();
+        var existingOrder = context.Orders.Find(order.Id);
+        if(existingOrder == null){
+            throw new Exception($"Order with ID {order.Id} not found.");
+        }
+
+        existingOrder.DeliveryDate = order.DeliveryDate;
+        existingOrder.Status = order.Status;
+        existingOrder.TotalAmount = order.TotalAmount;
+
+        context.Orders.Update(existingOrder);
+        context.SaveChanges();
     }
 
     public Paper? GetPaperById(int? paperId)
+{
+    if (paperId == null) 
     {
-         return context.Papers.Include(p => p.Properties).FirstOrDefault(p => p.Id == paperId);
+        return null;  // Ensure null check to avoid issues
     }
+
+    return context.Papers.Include(p => p.Properties).FirstOrDefault(p => p.Id == paperId.Value); 
+}
+
 
     public void Updatepaper(Paper paper)
     {
@@ -116,18 +132,21 @@ public class AppRepository(AppDbContext context) : IAppRepository{
          return context.Orders.Include(o => o.OrderEntries).ThenInclude(oe => oe.Product).Where(o => o.CustomerId == customerId).ToList();
     }
 
-    public Property AddPropertyToPaper(int paperId, string propertyName, int propertyId)
+    public void AddPropertyToPaper(int paperId,  int propertyId)
     {
-        var paper = GetPaperById(paperId); // Ensure the paper exists
+    var paper = GetPaperById(paperId); // Ensure the paper exists
     if (paper == null) throw new Exception("Paper not found.");
 
-    var newProperty = new Property
-    {
-        PropertyName = propertyName,
-    };
+    var property = context.Properties.FirstOrDefault(p => p.Id == propertyId);
+    if (property == null) throw new Exception("Property not found");
 
-    context.Properties.Add(newProperty);
-    context.SaveChanges();
-    return newProperty;
+    if(!paper.Properties.Contains(property)){
+        paper.Properties.Add(property);
+        context.SaveChanges();
+    } else{
+        throw new Exception("Property is already assigned to paper");
+    }
+
+    
     }
 }

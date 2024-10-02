@@ -31,12 +31,12 @@ const Dashboard: React.FC = () => {
           return response.json();
         })
         .then((data) => {
-          console.log('Fetched orders:', data); // Log the fetched data
-          // Adjust this part to account for the API's actual data structure
+          console.log('Fetched orders:', data);
+         
           if (data && Array.isArray(data.$values)) {
-            setOrders(data.$values); // Use $values if the orders are inside this property
+            setOrders(data.$values); 
           } else {
-            setOrders([]); // If no valid orders, set an empty array
+            setOrders([]); 
           }
         })
         .catch((error) => console.error('Error fetching orders:', error));

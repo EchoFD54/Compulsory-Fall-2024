@@ -5,7 +5,7 @@ public interface IAppRepository{
     public Order CreateOrder(Order order);
     public List<Order> GetAllOrders();
     public Order GetOrderById(int orderId);
-    public void UpdateOrderStatus(int orderId, string status);
+    public void UpdateOrder(Order order);
     public List<Order> GetOrdersByCustomerId(int customerId);
 
     //Papers
@@ -26,6 +26,6 @@ public interface IAppRepository{
     public Property CreateProperty(Property property);
     public List<Property> GetAllProperties();
     public Property? GetPropertyById(int? propertyId);
-    public Property AddPropertyToPaper(int paperId, string propertyName, int propertyId);
+    public void AddPropertyToPaper(int paperId, int propertyId);
     
     }

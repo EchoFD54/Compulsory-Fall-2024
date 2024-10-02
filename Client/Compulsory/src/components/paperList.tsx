@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { papersAtom } from "../atoms/paperAtom";
 
+
 const PaperList: React.FC = () => {
     const [papers, setPapers] = useAtom(papersAtom);
     const [restockAmount, setRestockAmount] = useState<number>(0);

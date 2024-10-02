@@ -7,6 +7,7 @@ public interface IAppService{
     public List<Paper> GetAllPapers();
     public PaperDto DiscontinuePaper(int paperId);
     public PaperDto RestockPaper(int paperId, int newStock);
+    public PaperDto GetPaperById(int paperId);
 
     public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto);
     public List<Customer> GetAllCustomers();
@@ -15,9 +16,11 @@ public interface IAppService{
     public OrderDto CreateOrder(CreateOrderDto createOrderDto);
     public List<Order> GetAllOrders();
     public List<OrderDto> GetOrdersByCustomerId(int customerId);
+    public void ChangeOrderStatus(int orderId, string newStatus);
 
     public PropertyDto CreateProperty (CreatePropertyDto createPropertyDto);
      public List<Property> GetAllProperties();
+      public void AssignPropertyToPaper(int paperId, int propertyId);
 
 
 
@@ -55,6 +58,16 @@ public class AppService(
         }
         paper.Stock += newStock;
         appRepository.Updatepaper(paper);
+        return new PaperDto().FromEntity(paper);
+    }
+
+    public PaperDto GetPaperById(int paperId)
+    {
+        var paper = appRepository.GetPaperById(paperId);
+        if(paper == null){
+            throw new Exception("Paper doesn't exist");
+        }
+
         return new PaperDto().FromEntity(paper);
     }
 
@@ -109,6 +122,15 @@ public class AppService(
     return orders.Select(order => new OrderDto().FromEntity(order)).ToList();
     }
 
+    public void ChangeOrderStatus(int orderId, string newStatus){
+         var order = appRepository.GetOrderById(orderId);
+        if (order == null) {
+            throw new Exception($"Order with ID {orderId} not found.");
+        }
+        order.Status = newStatus;
+        appRepository.UpdateOrder(order);
+    }
+
     //Property
     public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto){
         var property = createPropertyDto.ToProperty();
@@ -120,20 +142,23 @@ public class AppService(
         return appRepository.GetAllProperties().ToList();
     }
 
-    public void AssignPropertyToPaper(int paperId, int propertyId)
+    public void AssignPropertyToPaper(int paperId, int propertyId){
+    Console.WriteLine($"Assigning property {propertyId} to paper {paperId}");
+    var paper = appRepository.GetPaperById(paperId);
+    if (paper == null)
     {
-        var paper = appRepository.GetPaperById(paperId);
-        var property = appRepository.GetPropertyById(propertyId);
-
-        if (paper == null || property == null)
-        {
-            throw new Exception("Invalid paper or property ID.");
-        }
-
-        paper.Properties.Add(property);
-        appRepository.Updatepaper(paper);
+        throw new Exception($"Invalid paper ID: {paperId}");
     }
 
+    var property = appRepository.GetPropertyById(propertyId);
+    if (property == null)
+    {
+        throw new Exception($"Invalid property ID: {propertyId}");
+    }
+
+    appRepository.AddPropertyToPaper(paper.Id, property.Id);
+    paper.Properties.Add(property);
+}
 
 
     

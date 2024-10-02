@@ -20,4 +20,25 @@ public class PropertyController(IAppService appService) : ControllerBase
         return Ok(proeprties);
     }
 
+    [HttpPost]
+[Route("assignProperty")]
+public ActionResult AssignPropertyToPaper([FromBody] AssignPropertyDto dto)
+{
+    try
+    {
+        Console.WriteLine($"Received PaperId: {dto.PaperId}, PropertyId: {dto.PropertyId}");
+
+       
+        appService.AssignPropertyToPaper(dto.PaperId, dto.PropertyId);
+        return Ok("Property successfully assigned");
+    }
+    catch (Exception ex)
+    {
+        return BadRequest(ex.Message);
+    }
+}
+
+
+
+
 }

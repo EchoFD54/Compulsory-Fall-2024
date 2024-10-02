@@ -78,3 +78,13 @@ Content-Type: application/json
 ###
 
 
+POST http://localhost:5248/api/property/assignProperty
+Content-Type: application/json
+
+{
+    "paperId": 1, 
+    "propertyId": 1 
+}
+
+###
+
