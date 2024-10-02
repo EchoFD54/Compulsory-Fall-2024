@@ -26,10 +26,7 @@ public interface IAppService{
 
 }
 
-public class AppService(
-    ILogger<AppService> logger, 
-    IAppRepository appRepository) : IAppService
-{
+public class AppService(IAppRepository appRepository) : IAppService{
     //Paper
     public PaperDto CreatePaper(CreatepaperDto createpaperDto){
         var paper = createpaperDto.ToPaper();
