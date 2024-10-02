@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{4B1D61
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api", "Server\Api\api.csproj", "{3DE5668F-84C3-4F3F-A56C-E1E9A5333ADC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "Server\Tests\tests.csproj", "{FFCA3266-B763-4385-9926-E45D9FC8336E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +19,17 @@ Global
 		{3DE5668F-84C3-4F3F-A56C-E1E9A5333ADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DE5668F-84C3-4F3F-A56C-E1E9A5333ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DE5668F-84C3-4F3F-A56C-E1E9A5333ADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCA3266-B763-4385-9926-E45D9FC8336E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCA3266-B763-4385-9926-E45D9FC8336E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCA3266-B763-4385-9926-E45D9FC8336E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCA3266-B763-4385-9926-E45D9FC8336E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3DE5668F-84C3-4F3F-A56C-E1E9A5333ADC} = {4B1D611C-E489-4BF1-A3C4-6D074EDD0F26}
+		{FFCA3266-B763-4385-9926-E45D9FC8336E} = {4B1D611C-E489-4BF1-A3C4-6D074EDD0F26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1488DC1-E2EA-43CA-9A8C-AF6F02BF0077}
