@@ -5,6 +5,9 @@ import Login from './components/Login';
 import Dashboard from './components/DashBoard';
 import PaperList from './components/paperList';
 import ManageProducts from './components/ManageProducts';
+import ProductList from './components/ShopSite';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
 
 
 const App: React.FC = () => {
@@ -14,9 +17,12 @@ const App: React.FC = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Login />} />
         <Route path="/manage-products" element={<ManageProducts />} />
         <Route path="/paper" element={<PaperList />} />
+        <Route path="/shopsite" element={<ProductList />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </Router>
   );

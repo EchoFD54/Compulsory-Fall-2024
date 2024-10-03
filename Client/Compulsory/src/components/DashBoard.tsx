@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div>
-        <Link to="/paper">
+        <Link to="/shopsite">
           <button>Buy Products</button>
         </Link>
       </div>

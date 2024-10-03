@@ -50,7 +50,11 @@ Content-Type: application/json
     "status": "pending",
     "orderEntries": [
         {
-            "productId": 5,
+            "productId": 1,
+            "quantity": 5
+        },
+        {
+            "productId": 3,
             "quantity": 5
         }
     ]
