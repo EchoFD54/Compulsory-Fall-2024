@@ -43,6 +43,7 @@ public class AppRepositoryTests{
     //tests
     [Fact]
     public void GetAllPapers_ReturnAllPapers(){
+        setup.DbContextInstance.Database.EnsureCreated();
         var papers = new List<Paper>{
             GetPaper(),
             GetPaper()
@@ -59,6 +60,7 @@ public class AppRepositoryTests{
     [Fact]
     public void GetAllCustomers_ReturnAllCustomers()
     {
+        setup.DbContextInstance.Database.EnsureCreated();
         var cutomers = new List<Customer>{
             GetCustomer(),
             GetCustomer()
@@ -75,6 +77,7 @@ public class AppRepositoryTests{
     [Fact]
     public void GetAllOrders_ReturnAllOrders()
     {
+        setup.DbContextInstance.Database.EnsureCreated();
         var orders = new List<Order>{
             GetOrder(),
             GetOrder()
