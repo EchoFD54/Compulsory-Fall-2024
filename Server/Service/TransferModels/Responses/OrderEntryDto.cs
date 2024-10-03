@@ -7,22 +7,17 @@ public class OrderEntryDto{
             Quantity = orderEntry.Quantity,
             ProductId = orderEntry.ProductId,
             OrderId = orderEntry.OrderId,
-            Order = orderEntry.Order,
-            Product = orderEntry.Product
+            ProductName = orderEntry.Product?.Name,
+            ProductPrice = orderEntry.Product?.Price ?? 0
         };
         
 
     }
 
-     public int Id { get; set; }
-
+    public int Id { get; set; }
     public int Quantity { get; set; }
-
     public int? ProductId { get; set; }
-
+    public string? ProductName {get; set;} = null!;
+    public double ProductPrice{get;set;}
     public int? OrderId { get; set; }
-
-    public virtual Order? Order { get; set; }
-
-    public virtual Paper? Product { get; set; }
 }

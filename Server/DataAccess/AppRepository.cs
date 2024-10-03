@@ -33,13 +33,16 @@ public class AppRepository(AppDbContext context) : IAppRepository{
     }
 
     public List<Order> GetAllOrders()
-    {
-        return [.. context.Orders];
-    }
-
+{
+    return context.Orders
+                  .Include(o => o.OrderEntries)
+                  .ThenInclude(oe => oe.Product) // Include the Product (Paper) details in OrderEntries
+                  .Include(o => o.Customer) // Include Customer details
+                  .ToList();
+}
     public List<Paper> GetAllPapers()
     {
-        return [.. context.Papers];
+        return [.. context.Papers.Include(p => p.Properties).ToList()];
     }
 
     public List<Customer> GetAllCustomers()

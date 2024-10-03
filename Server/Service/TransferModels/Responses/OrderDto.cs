@@ -7,10 +7,10 @@ public class OrderDto{
             OrderDate = order.OrderDate,
             DeliveryDate = order.DeliveryDate,
             Status = order.Status,
-            TotalAmount = order.TotalAmount,
             CustomerId = order.CustomerId,
-            Customer = order.Customer,
-            OrderEntries = order.OrderEntries
+            CustomerName = order.Customer?.Name,
+            OrderEntries = order.OrderEntries.Select(oe => new OrderEntryDto().FromEntity(oe)).ToList(),
+            TotalAmount = order.OrderEntries.Sum(oe => oe.Quantity *(oe.Product?.Price ?? 0))
         };
     }
 
@@ -20,6 +20,6 @@ public class OrderDto{
     public string Status { get; set; } = null!;
     public double TotalAmount { get; set; }
     public int? CustomerId { get; set; }
-    public virtual Customer? Customer { get; set; }
-    public virtual ICollection<OrderEntry> OrderEntries { get; set; } = new List<OrderEntry>();
+    public string? CustomerName {get;set; }
+     public List<OrderEntryDto> OrderEntries { get; set; } = new List<OrderEntryDto>();
 }

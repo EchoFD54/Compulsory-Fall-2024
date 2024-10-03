@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 interface OrderEntry {
   id: number;
   quantity: number;
-  product: { name: string; price: number };
+  productId: number; 
+  productName: string; 
+  productPrice: number;
 }
 
 interface Order {
@@ -32,11 +34,16 @@ const Dashboard: React.FC = () => {
         })
         .then((data) => {
           console.log('Fetched orders:', data);
-         
+  
           if (data && Array.isArray(data.$values)) {
-            setOrders(data.$values); 
+            // If data is correctly formatted
+            const ordersWithEntries = data.$values.map((order: { orderEntries: { $values: any; }; }) => ({
+              ...order,
+              orderEntries: order.orderEntries?.$values || [] // Use the correct path for order entries
+            }));
+            setOrders(ordersWithEntries);
           } else {
-            setOrders([]); 
+            setOrders([]);
           }
         })
         .catch((error) => console.error('Error fetching orders:', error));
@@ -65,12 +72,30 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div>
+        <Link to="/paper">
+          <button>Buy Products</button>
+        </Link>
+      </div>
+
+      <div>
+        <Link to="/paper">
+          <button>Manage Orders</button>
+        </Link>
+      </div>
+
+      <div>
+        <Link to="/paper">
+          <button>Manage Customers</button>
+        </Link>
+      </div>
+
+      <div>
         <h2>Your Orders</h2>
         {orders.length === 0 ? (
           <p>No orders found.</p>
         ) : (
           <div>
-            <ul>
+              <ul>
   {orders.map((order) => (
     <li key={order.id}>
       <div>
@@ -78,13 +103,13 @@ const Dashboard: React.FC = () => {
       </div>
       <p>Date: {new Date(order.orderDate).toLocaleDateString()}</p>
       <p>Status: {order.status || 'Unknown'}</p>
-      <p>Total: ${order.totalAmount || '0.00'}</p>
+      <p>Total: ${order.totalAmount.toFixed(2) || '0.00'}</p> {/* Directly use totalAmount from backend */}
       <h4>Order Entries:</h4>
       <ul>
         {order.orderEntries && order.orderEntries.length > 0 ? (
           order.orderEntries.map((entry) => (
             <li key={entry.id}>
-              {entry.quantity}x {entry.product?.name || 'Unknown Product'} @ ${entry.product?.price || '0.00'}
+              {entry.quantity}x {entry.productName || 'Unknown Product'} each at ${entry.productPrice.toFixed(2) || '0.00'}
             </li>
           ))
         ) : (
@@ -94,6 +119,8 @@ const Dashboard: React.FC = () => {
     </li>
   ))}
 </ul>
+
+
           </div>
         )}
       </div>

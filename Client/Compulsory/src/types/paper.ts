@@ -5,6 +5,6 @@ export interface Paper {
     stock: number;
     price: number;
     orderEntries: string[];
-    properties: string[];
+    propertyNames: string[];
 
 }

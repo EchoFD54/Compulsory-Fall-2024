@@ -5,13 +5,15 @@ public class PropertyDto{
         return new PropertyDto{
             Id = property.Id,
             PropertyName = property.PropertyName,
-            Papers = property.Papers
+            //Papers = property.Papers
         };
     }
+
+    
 
     public int Id { get; set; }
 
     public string PropertyName { get; set; } = null!;
 
-    public virtual ICollection<Paper> Papers { get; set; } = new List<Paper>();
+    //public virtual ICollection<Paper> Papers { get; set; } = new List<Paper>();
 }

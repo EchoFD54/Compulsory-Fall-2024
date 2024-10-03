@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 public interface IAppService{
     public PaperDto CreatePaper(CreatepaperDto createpaperDto);
-    public List<Paper> GetAllPapers();
+    public List<PaperDto> GetAllPapers();
     public PaperDto DiscontinuePaper(int paperId);
     public PaperDto RestockPaper(int paperId, int newStock);
     public PaperDto GetPaperById(int paperId);
@@ -14,7 +14,7 @@ public interface IAppService{
     public CustomerDto GetCustomerByEmail(string email);
 
     public OrderDto CreateOrder(CreateOrderDto createOrderDto);
-    public List<Order> GetAllOrders();
+    public List<OrderDto> GetAllOrders();
     public List<OrderDto> GetOrdersByCustomerId(int customerId);
     public void ChangeOrderStatus(int orderId, string newStatus);
 
@@ -34,8 +34,9 @@ public class AppService(IAppRepository appRepository) : IAppService{
         return new PaperDto().FromEntity(newPaper);
     }
 
-    public List<Paper> GetAllPapers(){
-        return appRepository.GetAllPapers().ToList();
+    public List<PaperDto> GetAllPapers(){
+        var papers = appRepository.GetAllPapers();
+        return papers.Select(paper => new PaperDto().FromEntity(paper)).ToList();
     }
 
     public PaperDto DiscontinuePaper(int paperId){
@@ -110,8 +111,9 @@ public class AppService(IAppRepository appRepository) : IAppService{
         return new OrderDto().FromEntity(newOrder);
     }
 
-    public List<Order> GetAllOrders(){
-        return appRepository.GetAllOrders().ToList();
+    public List<OrderDto> GetAllOrders(){
+        var orders = appRepository.GetAllOrders();
+        return orders.Select(order => new OrderDto().FromEntity(order)).ToList();
     }
 
     public List<OrderDto> GetOrdersByCustomerId(int customerId){

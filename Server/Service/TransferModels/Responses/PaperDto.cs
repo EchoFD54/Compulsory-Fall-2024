@@ -8,7 +8,7 @@ public class PaperDto{
             Discontinued = paper.Discontinued,
             Stock = paper.Stock,
             Price = paper.Price,
-            Properties = paper.Properties
+            PropertyNames = paper.Properties.Select(p => p.PropertyName).ToList()
 
 
         };
@@ -24,5 +24,5 @@ public class PaperDto{
 
     public int Id{get; set;}
 
-    public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
+    public List<string> PropertyNames { get; set; } = new List<string>();
 }
