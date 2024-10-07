@@ -14,7 +14,7 @@ public class PaperController(IAppService appService) : ControllerBase{
 
     [HttpGet]
     [Route("")]
-    public ActionResult<List<Paper>> GetAllPapers(){
+    public ActionResult<List<PaperDto>> GetAllPapers(){
         var papers = appService.GetAllPapers();
         return Ok(papers);
     }
