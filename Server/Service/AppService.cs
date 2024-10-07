@@ -2,6 +2,7 @@ using DataAccess.DataAccess;
 using DataAccess.Models;
 using Microsoft.Extensions.Logging;
 
+namespace Service.Services;
 public interface IAppService{
     public PaperDto CreatePaper(CreatepaperDto createpaperDto);
     public List<PaperDto> GetAllPapers();

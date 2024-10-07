@@ -1,5 +1,6 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using Service.Services;
 
 [ApiController]
 [Route("api/[controller]")]

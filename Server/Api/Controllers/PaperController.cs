@@ -1,6 +1,8 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using Service.Services;
 
+namespace Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class PaperController(IAppService appService) : ControllerBase{

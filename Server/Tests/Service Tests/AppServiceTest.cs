@@ -1,8 +1,7 @@
-using DataAccess.DataAccess;
 using DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
 using Moq;
-using PgCtx;
+using Xunit;
+using Service.Services;
 
 public class AppServiceTest
 {

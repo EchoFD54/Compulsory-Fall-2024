@@ -1,6 +1,9 @@
-using DataAccess.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Xunit;
+using Api.Controllers;
+using Service.Services;
 
 public class PaperControllerTest{
     private readonly Mock<IAppService> appServiceMock;
