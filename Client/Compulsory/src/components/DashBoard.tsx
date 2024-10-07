@@ -2,22 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { customerAtom } from '../atoms/state';
 import { Link } from 'react-router-dom';
-
-interface OrderEntry {
-  id: number;
-  quantity: number;
-  productId: number; 
-  productName: string; 
-  productPrice: number;
-}
-
-interface Order {
-  id: number;
-  orderDate: string;
-  status: string;
-  totalAmount: number;
-  orderEntries: OrderEntry[];
-}
+import { Order } from '../atoms/orderAtom';
 
 const Dashboard: React.FC = () => {
   const [customer] = useAtom(customerAtom);
@@ -39,7 +24,7 @@ const Dashboard: React.FC = () => {
             // If data is correctly formatted
             const ordersWithEntries = data.$values.map((order: { orderEntries: { $values: any; }; }) => ({
               ...order,
-              orderEntries: order.orderEntries?.$values || [] // Use the correct path for order entries
+              orderEntries: order.orderEntries?.$values || [] 
             }));
             setOrders(ordersWithEntries);
           } else {
@@ -78,7 +63,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div>
-        <Link to="/paper">
+        <Link to="/manage-orders">
           <button>Manage Orders</button>
         </Link>
       </div>
@@ -103,7 +88,8 @@ const Dashboard: React.FC = () => {
       </div>
       <p>Date: {new Date(order.orderDate).toLocaleDateString()}</p>
       <p>Status: {order.status || 'Unknown'}</p>
-      <p>Total: ${order.totalAmount.toFixed(2) || '0.00'}</p> {/* Directly use totalAmount from backend */}
+      <p>Total: ${order.totalAmount.toFixed(2) || '0.00'}</p> 
+      <p>Delivery Date: {new Date(order.deliveryDate).toLocaleDateString()}</p>
       <h4>Order Entries:</h4>
       <ul>
         {order.orderEntries && order.orderEntries.length > 0 ? (

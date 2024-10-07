@@ -17,7 +17,8 @@ public interface IAppService{
     public OrderDto CreateOrder(CreateOrderDto createOrderDto);
     public List<OrderDto> GetAllOrders();
     public List<OrderDto> GetOrdersByCustomerId(int customerId);
-    public void ChangeOrderStatus(int orderId, string newStatus);
+    public OrderDto ChangeOrderStatus(int orderId, string newStatus);
+    public OrderDto ChangeOrderDeliveryDate(int orderId, DateOnly? newDate);
 
     public PropertyDto CreateProperty (CreatePropertyDto createPropertyDto);
      public List<Property> GetAllProperties();
@@ -122,14 +123,28 @@ public class AppService(IAppRepository appRepository) : IAppService{
     return orders.Select(order => new OrderDto().FromEntity(order)).ToList();
     }
 
-    public void ChangeOrderStatus(int orderId, string newStatus){
+    public OrderDto ChangeOrderStatus(int orderId, string newStatus){
          var order = appRepository.GetOrderById(orderId);
         if (order == null) {
             throw new Exception($"Order with ID {orderId} not found.");
         }
         order.Status = newStatus;
+        
         appRepository.UpdateOrder(order);
+        return new OrderDto().FromEntity(order);
     }
+
+    public OrderDto ChangeOrderDeliveryDate(int orderId, DateOnly? newDate){
+        var order = appRepository.GetOrderById(orderId);
+        if (order == null) {
+            throw new Exception($"Order with ID {orderId} not found.");
+        }
+        order.DeliveryDate = newDate;
+        
+        appRepository.UpdateOrder(order);
+        return new OrderDto().FromEntity(order);
+    }
+    
 
     //Property
     public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto){

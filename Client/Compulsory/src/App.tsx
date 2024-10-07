@@ -8,6 +8,7 @@ import ManageProducts from './components/ManageProducts';
 import ProductList from './components/ShopSite';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
+import AdminOrderManagement from './components/ORderManagement';
 
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         <Route path="/shopsite" element={<ProductList />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/manage-orders" element={<AdminOrderManagement />} />
       </Routes>
     </Router>
   );

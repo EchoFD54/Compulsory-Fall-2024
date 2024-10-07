@@ -35,4 +35,29 @@ public class OrderController(IAppService appService) : ControllerBase{
         }
     }
 
+    [HttpPut]
+    [Route("{orderId}/status")]
+    public ActionResult<OrderDto> UpdateOrderStatus(int orderId, [FromBody] string status) {
+        try {
+            var updatedOrder = appService.ChangeOrderStatus(orderId, status);
+            return Ok(updatedOrder); 
+        }
+        catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPut]
+    [Route("{orderId}/deliverydate")]
+    public ActionResult<OrderDto> UpdateOrderDeliveryDate(int orderId, [FromBody] DateOnly? date) {
+        try {
+        var updatedOrder = appService.ChangeOrderDeliveryDate(orderId, date);
+            return Ok(updatedOrder); 
+        }
+        catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
 }
