@@ -45,7 +45,7 @@ public class AppService(IAppRepository appRepository) : IAppService{
         if (paper == null) {
             throw new Exception($"Paper with ID {paperId} not found.");
         }
-        paper.Discontinued = true;
+         paper.Discontinued = !paper.Discontinued; 
         appRepository.Updatepaper(paper);
         return new PaperDto().FromEntity(paper);
     }

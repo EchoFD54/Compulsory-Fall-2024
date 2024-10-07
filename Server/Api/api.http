@@ -9,8 +9,8 @@ POST http://localhost:5248/api/paper
 Content-Type: application/json
 
 {
-    "name": "papel3",
-    "price": "1500.0"
+    "name": "papel350",
+    "price": "5000"
 }
 
 ###
@@ -24,10 +24,10 @@ POST http://localhost:5248/api/customer
 Content-Type: application/json
 
 {
-    "name": "Juan",
-    "address": "Bogota",
+    "name": "Maria Paula",
+    "address": "Bogota Calle 43",
     "phone": "3223666896",
-    "email": "eljijijaja@gmail.com"
+    "email": "lachistosita@gmail.com"
 }
 
 ###

@@ -1,56 +1,66 @@
-// components/Checkout.tsx
 import React from 'react';
 import { useAtom } from 'jotai';
 import { cartAtom } from '../atoms/cartAtom.ts';
-import { customerAtom } from '../atoms/state';
+import { customerAtom } from '../atoms/state.ts';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout: React.FC = () => {
-  const [cart] = useAtom(cartAtom);
+  const [cart, setCart] = useAtom(cartAtom);
   const [customer] = useAtom(customerAtom);
+  const navigate = useNavigate();
 
-  const handleCheckout = () => {
+  const totalAmount = cart.reduce((total, entry) => total + entry.price * entry.quantity, 0);
+
+  const finishOrder = () => {
+    if (!customer) {
+      alert("Please log in to finish the order.");
+      return;
+    }
+
     const orderData = {
-        customerId: customer?.id,
+      customerId: customer.id,
+      status: "pending", 
       orderEntries: cart.map(entry => ({
         productId: entry.productId,
         quantity: entry.quantity
       }))
     };
 
-    fetch('https://localhost:7246/api/order', { 
+  
+    fetch('https://localhost:7246/api/order', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(orderData),
+      body: JSON.stringify(orderData)
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Order placed:', data);
-        
+      .then(response => {
+        if (response.ok) {
+          alert("Order placed successfully!");
+          setCart([]); 
+          navigate('/dashboard'); 
+        } else {
+          console.error("Failed to place order.");
+        }
       })
-      .catch(error => console.error('Error placing order:', error));
+      .catch(error => console.error('Error creating order:', error));
   };
 
   return (
     <div>
       <h2>Checkout</h2>
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <div>
-          <h3>Your Order:</h3>
-          <ul>
-            {cart.map(entry => (
-              <li key={entry.productId}>
-                <p>Product ID: {entry.productId}</p>
-                <p>Quantity: {entry.quantity}</p>
-              </li>
-            ))}
-          </ul>
-          <button onClick={handleCheckout}>Place Order</button>
-        </div>
-      )}
+      <ul>
+        {cart.map(entry => (
+          <li key={entry.productId}>
+            <p>Product Name: {entry.productName}</p>
+            <p>Quantity: {entry.quantity}</p>
+            <p>Price per Unit: ${entry.price.toFixed(2)}</p>
+          </li>
+        ))}
+      </ul>
+      <h3>Total Amount: ${totalAmount.toFixed(2)}</h3>
+
+      <button onClick={finishOrder}>Finish Order</button>
     </div>
   );
 };
