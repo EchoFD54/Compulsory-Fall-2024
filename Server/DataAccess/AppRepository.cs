@@ -50,9 +50,9 @@ public class AppRepository(AppDbContext context) : IAppRepository{
         return[.. context.Customers];
     }
 
-    public Order GetOrderById(int orderId)
+    public Order? GetOrderById(int orderId)
     {
-        throw new NotImplementedException();
+         return context.Orders.Include(o => o.Customer) .Include(o => o.OrderEntries).FirstOrDefault(o => o.Id == orderId); 
     }
 
     public void RestockPaper(int paperId, int quantity)

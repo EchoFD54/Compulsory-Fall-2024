@@ -4,7 +4,7 @@ public interface IAppRepository{
     //Orders
     public Order CreateOrder(Order order);
     public List<Order> GetAllOrders();
-    public Order GetOrderById(int orderId);
+    public Order? GetOrderById(int orderId);
     public void UpdateOrder(Order order);
     public List<Order> GetOrdersByCustomerId(int customerId);
 

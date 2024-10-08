@@ -7,9 +7,11 @@ import Cart from './Cart.tsx';
 
 const ProductList: React.FC = () => {
   const [papers, setPapers] = useState<Paper[]>([]);
+  const [filteredPapers, setFilteredPapers] = useState<Paper[]>([]);
   const [cart, setCart] = useAtom(cartAtom);
   const [customer] = useAtom(customerAtom);
-  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('name'); 
 
   useEffect(() => {
     fetch('https://localhost:7246/api/paper') 
@@ -17,9 +19,26 @@ const ProductList: React.FC = () => {
       .then((data) => {
         const availablePapers = data.$values?.filter((paper: Paper) => !paper.discontinued) || [];
         setPapers(availablePapers); 
+        setFilteredPapers(availablePapers); 
       })
       .catch((error) => console.error('Error fetching papers:', error));
   }, []);
+
+  useEffect(() => {
+    let results = papers.filter(paper =>
+      paper.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    results.sort((a, b) => {
+      if (sortOption === 'name') {
+        return a.name.localeCompare(b.name);
+      } else if (sortOption === 'price') {
+        return a.price - b.price;
+      }
+      return 0;
+    });
+
+    setFilteredPapers(results);
+  }, [searchTerm, sortOption, papers]);
 
   const addToCart = (productId: number) => {
     if (!customer) { 
@@ -27,8 +46,8 @@ const ProductList: React.FC = () => {
       return;
     }
 
-    const product = papers.find(paper => paper.id ===productId);
-    if(!product) return;
+    const product = filteredPapers.find(paper => paper.id === productId);
+    if (!product) return;
 
     const existingEntry = cart.find(entry => entry.productId === productId);
     
@@ -48,8 +67,21 @@ const ProductList: React.FC = () => {
   return (
     <div>
       <h2>Available Papers</h2>
+      
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      
+      <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+        <option value="name">Sort by Name</option>
+        <option value="price">Sort by Price</option>
+      </select>
+
       <ul>
-        {papers.map(paper => (
+        {filteredPapers.map(paper => (
           <li key={paper.id}>
             <h4>{paper.name}</h4>
             <p>Price: ${paper.price.toFixed(2)}</p>
@@ -74,4 +106,5 @@ const ProductList: React.FC = () => {
     </div>
   );
 };
+
 export default ProductList;

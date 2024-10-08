@@ -37,7 +37,7 @@ const AdminOrderManagement: React.FC = () => {
   };
 
   const handleStatusSubmission = async (orderId: number) => {
-    const status = statusUpdates[orderId] || newStatus; 
+    const status = statusUpdates[orderId] || newStatus;
     try {
       const response = await fetch(`https://localhost:7246/api/order/${orderId}/status`, {
         method: 'PUT',
@@ -46,7 +46,7 @@ const AdminOrderManagement: React.FC = () => {
         },
         body: JSON.stringify(status), 
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to change order status');
       }
@@ -57,6 +57,7 @@ const AdminOrderManagement: React.FC = () => {
       alert('Failed to update status.');
     }
   };
+  
 
   const handleDeliveryDateSubmission = async (orderId: number) => {
     const deliveryDate = deliveryDateUpdates[orderId]; 
@@ -66,9 +67,9 @@ const AdminOrderManagement: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(deliveryDate), 
+        body: JSON.stringify({ date: deliveryDate }),  
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to change order delivery date');
       }
@@ -79,6 +80,7 @@ const AdminOrderManagement: React.FC = () => {
       alert('Failed to update delivery date.');
     }
   };
+  
 
   return (
     <div>

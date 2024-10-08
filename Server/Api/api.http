@@ -40,16 +40,7 @@ Accept: application/json
 PUT http://localhost:5248/api/order/1/status
 Content-Type: application/json
 
-{
-    "status": "a"
-}
-
-###
-
-PUT http://localhost:5248/api/order/1/status
-Content-Type: application/json
-
-"a"
+"completed2"
 
 ###
 

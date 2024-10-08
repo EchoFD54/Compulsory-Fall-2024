@@ -49,9 +49,13 @@ public class OrderController(IAppService appService) : ControllerBase{
 
     [HttpPut]
     [Route("{orderId}/deliverydate")]
-    public ActionResult<OrderDto> UpdateOrderDeliveryDate(int orderId, [FromBody] DateOnly? date) {
+    public ActionResult<OrderDto> UpdateOrderDeliveryDate(int orderId, [FromBody] DeliveryDateDto request) {
         try {
-        var updatedOrder = appService.ChangeOrderDeliveryDate(orderId, date);
+            DateOnly? deliveryDate = null;
+            if (request.Date != null){
+                deliveryDate = DateOnly.Parse(request.Date);
+            }
+            var updatedOrder = appService.ChangeOrderDeliveryDate(orderId, deliveryDate);
             return Ok(updatedOrder); 
         }
         catch (Exception ex) {

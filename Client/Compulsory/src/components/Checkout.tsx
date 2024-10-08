@@ -16,16 +16,20 @@ const Checkout: React.FC = () => {
       alert("Please log in to finish the order.");
       return;
     }
-
+  
+    const currentDate = new Date();
+    const deliveryDate = new Date();
+    deliveryDate.setDate(currentDate.getDate() + 7); 
+  
     const orderData = {
       customerId: customer.id,
       status: "pending", 
       orderEntries: cart.map(entry => ({
         productId: entry.productId,
         quantity: entry.quantity
-      }))
+      })),
+      deliveryDate: deliveryDate.toISOString().split('T')[0] 
     };
-
   
     fetch('https://localhost:7246/api/order', {
       method: 'POST',
@@ -45,7 +49,7 @@ const Checkout: React.FC = () => {
       })
       .catch(error => console.error('Error creating order:', error));
   };
-
+  
   return (
     <div>
       <h2>Checkout</h2>
