@@ -9,6 +9,7 @@ import ProductList from './components/ShopSite';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import AdminOrderManagement from './components/OrderManagement';
+import './styles/GeneralStyle.css'
 
 
 

@@ -68,7 +68,7 @@ const ProductList: React.FC = () => {
 
   return (
     <div className="shopsite-wrapper">
-    <div className="shopsite-list">
+      <div>
       <h2>Available Papers</h2>
       
       <input
@@ -82,7 +82,9 @@ const ProductList: React.FC = () => {
         <option value="name">Sort by Name</option>
         <option value="price">Sort by Price</option>
       </select>
-
+        
+      </div>
+    <div className="shopsite-list">
       <ul>
         {filteredPapers.map(paper => (
           <li key={paper.id}>

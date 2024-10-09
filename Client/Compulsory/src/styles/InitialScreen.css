@@ -53,18 +53,10 @@ body {
 }
 
 .login-signup-container button {
-    background-color: #24527a; 
-    color: white;
-    border: none; 
-    border-radius: 4px; 
+    background-color: #24527a;
     padding: 10px 15px; 
-    cursor: pointer; 
-    font-size: 16px; 
+    
     margin-top: 10px; 
-}
-
-.login-signup-container button:hover {
-    background-color: #45a049; 
 }
 
 .login-signup-container a {
