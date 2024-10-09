@@ -79,7 +79,7 @@ const Dashboard: React.FC = () => {
                   <p>Status: {order.status || 'Unknown'}</p>
                   <p>Total: ${order.totalAmount.toFixed(2)}</p>
                   <p>Delivery Date: {new Date(order.deliveryDate).toLocaleDateString()}</p>
-                  <h4>Order Entries:</h4>
+                  <h4>Products:</h4>
                   <ul>
                     {order.orderEntries?.map((entry) => (
                       <li key={entry.id}>

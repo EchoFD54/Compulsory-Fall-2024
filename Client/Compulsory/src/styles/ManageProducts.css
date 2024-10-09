@@ -1,3 +1,24 @@
+.manage-products-wrapper{
+  display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    background-color: #e0ebeb;
+    padding: 20px;
+    color: #24527a;
+    font-family: 'Arial', sans-serif;
+    max-width: 900px;
+    height: 600px;
+    width: 100%; 
+    margin: 20px auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.manage-products-wrapper button{
+  background-color: #24527a;
+}
+
 .manage-products-container {
     display: flex;
     justify-content: space-between;
@@ -7,7 +28,34 @@
   .paper-list-container {
     flex: 1;
     margin-right: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 550px; 
+    overflow-y: auto;
   }
+
+  .properties-list {
+    flex: 1;
+    margin-right: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 150px; 
+    overflow-y: auto;
+  }
+
+  .paper-list-container li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+   
+}
   
   .form-container {
     flex: 1;
@@ -31,4 +79,22 @@
   ul li {
     margin-bottom: 10px;
   }
+
+  .manage-products-wrapper input {
+    
+   
+    
+    border: 1px solid #ddd; 
+    background-color: #a7bcb9;
+    border-radius: 4px; 
+    font-size: 14px; 
+}
+.manage-products-wrapper select {
+    padding: 5px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ddd; 
+    background-color: #24527a;
+    border-radius: 4px; 
+    font-size: 14px; 
+}
   

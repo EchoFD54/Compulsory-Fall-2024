@@ -1,11 +1,4 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #5dacbd;
-    margin: 0;
-}
+
 
 .login-signup-container {
     box-sizing: border-box;
@@ -43,13 +36,13 @@ body {
 }
 
 .login-signup-container input {
-    width: 100%; 
+    width: 90%; 
     padding: 10px; 
     margin-bottom: 15px; 
     border: 1px solid #ddd; 
     background-color: #a7bcb9;
     border-radius: 4px; 
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 .login-signup-container button {

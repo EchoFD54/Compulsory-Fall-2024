@@ -136,7 +136,7 @@ const PaperList: React.FC = () => {
                 <ul>
                     {papers.map((paper) => (
                         <li key={paper.id}>
-                            <h3>{paper.name}</h3>
+                            <h3>Name: {paper.name}</h3>
                             <p>Discontinued: {paper.discontinued ? 'Yes' : 'No'}</p>
                             <p>Stock: {paper.stock}</p>
                             <p>Price: ${paper.price}</p>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Customer } from '../atoms/state';
 import { Order } from '../atoms/orderAtom';
+import '../styles/ManageOrders.css'
 
 const AdminOrderManagement: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -83,7 +84,8 @@ const AdminOrderManagement: React.FC = () => {
   
 
   return (
-    <div>
+    <div className='manage-orders-wrapper'>
+      <div className='costumer-container'>
       <h2>Admin Order Management</h2>
 
       <div>
@@ -98,9 +100,10 @@ const AdminOrderManagement: React.FC = () => {
           ))}
         </ul>
       </div>
+      </div>
 
       {selectedCustomer && (
-        <div>
+        <div className='order-list'>
           <h3>Orders for {selectedCustomer.name}</h3>
           {orders.length === 0 ? (
             <p>No orders found for this customer.</p>

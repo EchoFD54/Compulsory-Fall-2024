@@ -93,12 +93,15 @@ const ManageProducts: React.FC = () => {
   }, []);
 
   return (
+    <div className="manage-products-wrapper">
     <div className="manage-products-container">
       <div className="paper-list-container">
         <PaperList />
       </div>
 
-      <div className="form-container">
+      
+    </div>
+    <div className="form-container">
         <h2>Create Paper</h2>
         <form onSubmit={handleSubmitPaper}>
           <div>
@@ -159,6 +162,7 @@ const ManageProducts: React.FC = () => {
         </form>
 
         <h2>Available Properties</h2>
+        <div className='properties-list'>
         <ul>
           {properties.length === 0 ? (
             <p>No properties found.</p>
@@ -170,6 +174,7 @@ const ManageProducts: React.FC = () => {
             ))
           )}
         </ul>
+      </div>
       </div>
     </div>
   );
