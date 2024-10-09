@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAtom } from 'jotai';
 import { Link, useNavigate } from 'react-router-dom';
 import { customerAtom } from '../atoms/state';
+import '../styles/InitialScreen.css'
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -15,7 +16,7 @@ const Login: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         setCustomer(data);
-        navigate('/dashboard');  // Redirect after successful login
+        navigate('/dashboard');  
       } else {
         alert('Customer not found');
       }
@@ -25,6 +26,8 @@ const Login: React.FC = () => {
   };
 
   return (
+    
+    <div className="login-signup-container">
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <label>
@@ -42,6 +45,7 @@ const Login: React.FC = () => {
         </Link>
       </div>
     </form>
+    </div>
   );
 };
 

@@ -8,7 +8,8 @@ import ManageProducts from './components/ManageProducts';
 import ProductList from './components/ShopSite';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
-import AdminOrderManagement from './components/ORderManagement';
+import AdminOrderManagement from './components/OrderManagement';
+
 
 
 const App: React.FC = () => {

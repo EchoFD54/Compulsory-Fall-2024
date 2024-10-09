@@ -1,0 +1,75 @@
+/* Apply styles only within this container */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #5dacbd;
+    margin: 0;
+}
+
+.login-signup-container {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; 
+    background-color: #5dacbd; 
+    color: #24527a; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+.login-signup-container form {
+    background-color: #e0ebeb; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+    width: 300px; 
+    text-align: center; 
+}
+
+.login-signup-container h2 {
+    font-size: 24px; 
+    margin-bottom: 20px; 
+    color: #24527a; 
+}
+
+.login-signup-container label {
+    display: block; 
+    margin-bottom: 10px; 
+    font-size: 16px; 
+}
+
+.login-signup-container input {
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ddd; 
+    background-color: #a7bcb9;
+    border-radius: 4px; 
+    font-size: 14px; 
+}
+
+.login-signup-container button {
+    background-color: #24527a; 
+    color: white;
+    border: none; 
+    border-radius: 4px; 
+    padding: 10px 15px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    margin-top: 10px; 
+}
+
+.login-signup-container button:hover {
+    background-color: #45a049; 
+}
+
+.login-signup-container a {
+    text-decoration: none; 
+    color: #4a4a4a; 
+}

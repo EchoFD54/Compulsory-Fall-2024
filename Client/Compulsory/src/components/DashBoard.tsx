@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import { customerAtom } from '../atoms/state';
 import { Link } from 'react-router-dom';
 import { Order } from '../atoms/orderAtom';
+import '../styles/Dashboard.css'
 
 const Dashboard: React.FC = () => {
   const [customer] = useAtom(customerAtom);
@@ -42,75 +43,55 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="dashboard-wrapper">
+    <div className="dashboard-container">
+      <div className="dashboard-header">
         <h2>Welcome, {customer.name}</h2>
         <p>Email: {customer.email}</p>
         <p>Address: {customer.address}</p>
         <p>Phone: {customer.phone}</p>
       </div>
-
-      <div>
-        <Link to="/manage-products">
-          <button>Create / Manage Products</button>
-        </Link>
-      </div>
-
-      <div>
+        <div className="dashboard-buttons">
         <Link to="/shopsite">
-          <button>Buy Products</button>
-        </Link>
-      </div>
+            <button>Buy Products</button>
+          </Link>
+          <Link to="/manage-products">
+            <button>Create / Manage Products</button>
+          </Link>
 
-      <div>
-        <Link to="/manage-orders">
-          <button>Manage Orders</button>
-        </Link>
-      </div>
-
-      <div>
-        <Link to="/paper">
-          <button>Manage Customers</button>
-        </Link>
-      </div>
-
-      <div>
-        <h2>Your Orders</h2>
-        {orders.length === 0 ? (
-          <p>No orders found.</p>
-        ) : (
-          <div>
-              <ul>
-  {orders.map((order) => (
-    <li key={order.id}>
-      <div>
-        <strong>Order #{order.id}</strong>
-      </div>
-      <p>Date: {new Date(order.orderDate).toLocaleDateString()}</p>
-      <p>Status: {order.status || 'Unknown'}</p>
-      <p>Total: ${order.totalAmount.toFixed(2) || '0.00'}</p> 
-      <p>Delivery Date: {new Date(order.deliveryDate).toLocaleDateString()}</p>
-      <h4>Order Entries:</h4>
-      <ul>
-        {order.orderEntries && order.orderEntries.length > 0 ? (
-          order.orderEntries.map((entry) => (
-            <li key={entry.id}>
-              {entry.quantity}x {entry.productName || 'Unknown Product'} each at ${entry.productPrice.toFixed(2) || '0.00'}
-            </li>
-          ))
-        ) : (
-          <li>No order entries available</li>
-        )}
-      </ul>
-    </li>
-  ))}
-</ul>
-
-
-          </div>
-        )}
-      </div>
-      
+          <Link to="/manage-orders">
+            <button>Manage Orders</button>
+          </Link>
+        </div>
+    </div>
+    <div className="orders-list">
+          <h2>Your Orders</h2>
+          {orders.length === 0 ? (
+            <p>No orders found.</p>
+          ) : (
+            <ul>
+              {orders.map((order) => (
+                <li key={order.id}>
+                  <div>
+                    <strong>Order #{order.id}</strong>
+                  </div>
+                  <p>Date: {new Date(order.orderDate).toLocaleDateString()}</p>
+                  <p>Status: {order.status || 'Unknown'}</p>
+                  <p>Total: ${order.totalAmount.toFixed(2)}</p>
+                  <p>Delivery Date: {new Date(order.deliveryDate).toLocaleDateString()}</p>
+                  <h4>Order Entries:</h4>
+                  <ul>
+                    {order.orderEntries?.map((entry) => (
+                      <li key={entry.id}>
+                        {entry.quantity}x {entry.productName || 'Unknown Product'} each at ${entry.productPrice.toFixed(2)}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
     </div>
   );
 };

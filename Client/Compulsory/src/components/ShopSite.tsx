@@ -5,6 +5,7 @@ import { customerAtom } from '../atoms/state.ts';
 import { Paper } from '../types/paper';
 import Cart from './Cart.tsx';
 
+
 const ProductList: React.FC = () => {
   const [papers, setPapers] = useState<Paper[]>([]);
   const [filteredPapers, setFilteredPapers] = useState<Paper[]>([]);
@@ -65,7 +66,8 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="product-list-wrapper">
+    <div className="product-list-container">
       <h2>Available Papers</h2>
       
       <input
@@ -103,6 +105,7 @@ const ProductList: React.FC = () => {
       <div className="cart-container">
         <Cart />
       </div>
+    </div>
     </div>
   );
 };

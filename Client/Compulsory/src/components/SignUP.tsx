@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import '../styles/InitialScreen.css'
+
+
 
 interface SignUpData {
   name: string;
@@ -41,6 +44,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
+    <div className="login-signup-container">
     <form onSubmit={handleSubmit}>
       <h2>Create an Account</h2>
       <label>
@@ -61,6 +65,7 @@ const SignUp: React.FC = () => {
       </label>
       <button type="submit">Sign Up</button>
     </form>
+    </div>
   );
 };
 
