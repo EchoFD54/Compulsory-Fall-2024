@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import { cartAtom } from '../atoms/cartAtom.ts';
 import { customerAtom } from '../atoms/state.ts';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Checkout.css'
 
 const Checkout: React.FC = () => {
   const [cart, setCart] = useAtom(cartAtom);
@@ -51,7 +52,7 @@ const Checkout: React.FC = () => {
   };
   
   return (
-    <div>
+    <div className='checkout-wrapper'>
       <h2>Checkout</h2>
       <ul>
         {cart.map(entry => (

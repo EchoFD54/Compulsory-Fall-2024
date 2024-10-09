@@ -4,6 +4,7 @@ import { cartAtom } from '../atoms/cartAtom.ts';
 import { customerAtom } from '../atoms/state.ts';
 import { Paper } from '../types/paper';
 import Cart from './Cart.tsx';
+import '../styles/Shopsite.css'
 
 
 const ProductList: React.FC = () => {
@@ -66,8 +67,8 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <div className="product-list-wrapper">
-    <div className="product-list-container">
+    <div className="shopsite-wrapper">
+    <div className="shopsite-list">
       <h2>Available Papers</h2>
       
       <input
@@ -101,11 +102,10 @@ const ProductList: React.FC = () => {
           </li>
         ))}
       </ul>
-
-      <div className="cart-container">
+    </div>
+    <div className="shopsite-cart">
         <Cart />
       </div>
-    </div>
     </div>
   );
 };

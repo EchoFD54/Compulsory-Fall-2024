@@ -1,0 +1,36 @@
+.checkout-wrapper{
+    background-color: #ffffff;
+    padding: 20px;
+    color: #24527a;
+    font-family: 'Arial', sans-serif;
+    max-width: 900px;
+    width: 100%; 
+    margin: 20px auto; 
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+}
+
+.checkout-wrapper button{
+    
+    background-color: #24527a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s
+}
+
+.checkout-wrapper button:hover {
+    background-color: #45a049;
+}
+
+.checkout-wrapper li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
