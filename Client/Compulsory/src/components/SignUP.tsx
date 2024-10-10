@@ -49,19 +49,19 @@ const SignUp: React.FC = () => {
       <h2>Create an Account</h2>
       <label>
         Name:
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        <input type="text" name="name" value={formData.name} onChange={handleChange} required/>
       </label>
       <label>
         Address:
-        <input type="text" name="address" value={formData.address} onChange={handleChange} />
+        <input type="text" name="address" value={formData.address} onChange={handleChange} required/>
       </label>
       <label>
         Phone:
-        <input type="text" name="phone" value={formData.phone} onChange={handleChange} />
+        <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
       </label>
       <label>
         Email:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
       </label>
       <button type="submit">Sign Up</button>
     </form>

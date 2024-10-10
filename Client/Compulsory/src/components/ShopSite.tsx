@@ -6,16 +6,19 @@ import { Paper } from '../types/paper';
 import Cart from './Cart.tsx';
 import '../styles/Shopsite.css'
 import { papersAtom } from '../atoms/paperAtom.ts';
-
+import addToCartIcon from '../assets/Addcarticon.png';
+import logo from '../assets/Applogo.png';
+import goBack from '../assets/Gobackicon.png'
+import { Link } from 'react-router-dom';
 
 const ProductList: React.FC = () => {
   const [papers, setPapers] = useAtom(papersAtom);
-  const [properties, setProperties] = useState<any[]>([]); 
   const [filteredPapers, setFilteredPapers] = useState<Paper[]>([]);
   const [cart, setCart] = useAtom(cartAtom);
   const [customer] = useAtom(customerAtom);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOption, setSortOption] = useState('name'); 
+  const [quantity, setQuantity] = useState<{ [key: number]: number }>({}); 
 
   useEffect(() => {
     const fetchPapers = async () => {
@@ -73,73 +76,106 @@ const ProductList: React.FC = () => {
     const product = filteredPapers.find(paper => paper.id === productId);
     if (!product) return;
 
+    const inputQuantity = quantity[productId] || 1; 
+
+    if (inputQuantity > product.stock) {
+      alert(`You cannot add more than ${product.stock} of this item.`);
+      return;
+    }
+
     const existingEntry = cart.find(entry => entry.productId === productId);
     
     if (existingEntry) {  
       setCart(cart.map(entry => 
-        entry.productId === productId ? { ...existingEntry, quantity: existingEntry.quantity + 1 } : entry
+        entry.productId === productId ? { ...existingEntry, quantity: existingEntry.quantity + inputQuantity } : entry
       ));
     } else {
       setCart([...cart, {
-        productId, quantity: 1,
+        productId,
+        quantity: inputQuantity,
         productName: product.name,
         price: product.price
       }]);
     }
+
+    
+    setQuantity(prev => ({ ...prev, [productId]: 1 }));
+  };
+
+  const handleQuantityChange = (productId: number, value: number) => {
+    setQuantity(prev => ({ ...prev, [productId]: value }));
   };
 
   return (
     <div className="shopsite-wrapper">
       <div>
-      <h2>Available Papers</h2>
-      
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      
-      <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-        <option value="name">Sort by Name</option>
-        <option value="price">Sort by Price</option>
-      </select>
-        
+        <h2> <img src={logo} alt="Add to Cart" className="logo" /> Available Papers <Link to="/dashboard">
+<button className='back-icon-button'><img src={goBack} alt="Add to Cart" className="back-icon" /> </button>
+        </Link> 
+         
+         </h2>
+        <div className='shopsite-searchbar'>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          
+          <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+            <option value="name">Sort by Name</option>
+            <option value="price">Sort by Price</option>
+          </select>
+        </div>
       </div>
-    <div className="shopsite-list">
-      <ul>
-        {filteredPapers.map(paper => (
-          <li key={paper.id}>
-            <h4>{paper.name}</h4>
-            <p>Price: ${paper.price.toFixed(2)}</p>
-            {paper.stock <= 0 ? (
-              <p style={{ color: 'red' }}>Out of Stock</p>
-            ) : (
-              <p>Stock: {paper.stock}</p>
-            )}
+      <div className="shopsite-list">
+        <ul>
+          {filteredPapers.map(paper => (
+            <li key={paper.id}>
+              <h4>{paper.name}</h4>
+              <p>Price: ${paper.price.toFixed(2)}</p>
+              {paper.stock <= 0 ? (
+                <p style={{ color: 'red' }}>Out of Stock</p>
+              ) : (
+                <p>Stock: {paper.stock}</p>
+              )}
 
-            <h4>Properties:</h4>
+              <h4>Properties:</h4>
               {paper.propertyNames && paper.propertyNames.length > 0 ? (
-            <div className='shopsite-properties-list'>
-               {paper.propertyNames.map((propertyName: string, index: number) => (
-                <li key={index}>{propertyName}</li>
-                 ))}
-            </div>
-                   ) : (
-               <p>No properties assigned.</p>
-               )}
+                <div className='shopsite-properties-list'>
+                  {paper.propertyNames.map((propertyName: string, index: number) => (
+                    <li key={index}>{propertyName}</li>
+                  ))}
+                </div>
+              ) : (
+                <p>No special properties.</p>
+              )}
 
-            <button 
-              onClick={() => addToCart(paper.id)} 
-              disabled={paper.stock <= 0}
-            >
-              Add to Cart
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-    <div className="shopsite-cart">
+              <div className='add-to-cart'>
+
+              <input 
+                type="number" 
+                min="1" 
+                max={paper.stock} 
+                value={quantity[paper.id] || 1} 
+                onChange={(e) => handleQuantityChange(paper.id, Math.max(1, Number(e.target.value)))}
+                style={{ width: '60px', marginRight: '10px' }}
+              />
+              <button 
+                onClick={() => addToCart(paper.id)} 
+                disabled={paper.stock <= 0}
+                className='cart-button'
+              >
+                
+                <img src={addToCartIcon} alt="Add to Cart" className="cart-icon" />
+                
+              </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="shopsite-cart">
         <Cart />
       </div>
     </div>

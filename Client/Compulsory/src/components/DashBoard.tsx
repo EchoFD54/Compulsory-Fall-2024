@@ -43,7 +43,11 @@ const Dashboard: React.FC = () => {
   
 
   if (!customer) {
-    return <div>Please log in first.</div>;
+    return <div>Please log in first.
+      <Link to="/login">
+             <button>Login</button>
+          </Link>
+    </div>;
   }
 
   return (

@@ -27,7 +27,15 @@ const AdminOrderManagement: React.FC = () => {
     fetch(`https://localhost:7246/api/order/customers/${customerId}`)
       .then(response => response.json())
       .then(data => {
-        setOrders(data.$values || []);
+        if (data && Array.isArray(data.$values)) {
+          const ordersWithEntries = data.$values.map((order: any) => ({
+            ...order,
+            orderEntries: order.orderEntries?.$values || [],  
+          }));
+          setOrders(ordersWithEntries);
+        } else {
+          setOrders([]);
+        }
         setSelectedCustomer(customers.find(c => c.id === customerId) || null);
       })
       .catch(error => console.error('Error fetching orders:', error));
@@ -52,6 +60,7 @@ const AdminOrderManagement: React.FC = () => {
         throw new Error('Failed to change order status');
       }
       console.log('Order status updated successfully');
+      alert('Status updated successfully');
       fetchOrders(selectedCustomer!.id);
     } catch (error) {
       console.error('Error updating status:', error);
@@ -75,6 +84,7 @@ const AdminOrderManagement: React.FC = () => {
         throw new Error('Failed to change order delivery date');
       }
       console.log('Delivery date updated successfully');
+      alert('Date updated successfully');
       fetchOrders(selectedCustomer!.id);
     } catch (error) {
       console.error('Error updating delivery date', error);
@@ -114,7 +124,18 @@ const AdminOrderManagement: React.FC = () => {
                   <p>Order ID: {order.id}</p>
                   <p>Total Amount: ${order.totalAmount.toFixed(2)}</p>
                   <p>Date: {new Date(order.orderDate).toLocaleDateString()}</p>
-
+                  <h4>Products:</h4>
+                  {order.orderEntries && order.orderEntries.length > 0 ? (
+                    <ul>
+                      {order.orderEntries.map((entry: any) => (
+                        <li key={entry.id}>
+                          {entry.quantity}x {entry.productName} at ${entry.productPrice.toFixed(2)} each
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No products in this order.</p>
+                  )}
                   
                   <p>Order Status: 
                     <input

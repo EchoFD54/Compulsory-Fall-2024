@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import { cartAtom } from '../atoms/cartAtom.ts';
 import { customerAtom } from '../atoms/state.ts';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/Checkout.css'
 
 const Checkout: React.FC = () => {
@@ -13,6 +14,11 @@ const Checkout: React.FC = () => {
   const totalAmount = cart.reduce((total, entry) => total + entry.price * entry.quantity, 0);
 
   const finishOrder = () => {
+
+    if (cart.length === 0) {
+      alert("Your cart is empty. Please add items to your cart before completing the order.");
+      return;
+    }
     if (!customer) {
       alert("Please log in to finish the order.");
       return;
@@ -64,8 +70,9 @@ const Checkout: React.FC = () => {
         ))}
       </ul>
       <h3>Total Amount: ${totalAmount.toFixed(2)}</h3>
-
+      <Link to="/shopsite">
       <button onClick={finishOrder}>Finish Order</button>
+      </Link>
     </div>
   );
 };

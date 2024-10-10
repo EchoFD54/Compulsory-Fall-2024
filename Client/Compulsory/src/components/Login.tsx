@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useAtom } from 'jotai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Form, Link, useNavigate } from 'react-router-dom';
 import { customerAtom } from '../atoms/state';
 import '../styles/InitialScreen.css'
+import logo from '../assets/Applogo.png'
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -28,6 +29,10 @@ const Login: React.FC = () => {
   return (
     
     <div className="login-signup-container">
+      <div className="logo-container">
+        <img src={logo} alt="Logo" className="login-logo" />
+      </div>
+
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <label>
