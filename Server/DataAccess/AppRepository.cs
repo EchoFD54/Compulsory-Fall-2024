@@ -13,6 +13,22 @@ public class AppRepository(AppDbContext context) : IAppRepository{
         return customer;
     }
 
+    public void UpdateCustomer(Customer customer){
+        var existingCustomer = context.Customers.Find(customer.Id);
+       if(existingCustomer == null){
+        throw new Exception($"Customer with ID {customer.Id} not found.");
+       }
+
+       existingCustomer.Name = customer.Name;
+       existingCustomer.Address = customer.Address;
+       existingCustomer.Email = customer.Email;
+       existingCustomer.Phone = customer.Phone;
+       
+
+       context.Customers.Update(existingCustomer);
+       context.SaveChanges();
+    }
+
     public Order CreateOrder(Order order)
     {
         context.Orders.Add(order);
@@ -36,8 +52,8 @@ public class AppRepository(AppDbContext context) : IAppRepository{
 {
     return context.Orders
                   .Include(o => o.OrderEntries)
-                  .ThenInclude(oe => oe.Product) // Include the Product (Paper) details in OrderEntries
-                  .Include(o => o.Customer) // Include Customer details
+                  .ThenInclude(oe => oe.Product) 
+                  .Include(o => o.Customer) 
                   .ToList();
 }
     public List<Paper> GetAllPapers()
@@ -79,7 +95,7 @@ public class AppRepository(AppDbContext context) : IAppRepository{
 {
     if (paperId == null) 
     {
-        return null;  // Ensure null check to avoid issues
+        return null;  
     }
 
     return context.Papers.Include(p => p.Properties).FirstOrDefault(p => p.Id == paperId.Value); 

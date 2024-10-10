@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { papersAtom } from "../atoms/paperAtom";
 
-const PaperList: React.FC = () => {
+const PaperList: React.FC<{ refresh: boolean }> = ({ refresh }) => {
     const [papers, setPapers] = useAtom(papersAtom);
     const [restockAmount, setRestockAmount] = useState<number>(0);
     const [properties, setProperties] = useState<any[]>([]); 
@@ -37,7 +37,7 @@ const PaperList: React.FC = () => {
     
         fetchPapers();
         fetchProperties();
-    }, [setPapers]);
+    }, [refresh, setPapers]);
     
 
     const fetchProperties = async () => {
@@ -101,12 +101,12 @@ const PaperList: React.FC = () => {
 
     const handleAssignProperty = async (paperId: number) => {
         const propertyId = selectedProperty[paperId];
-
+    
         if (!propertyId) {
             alert('Please select a property');
             return;
         }
-
+    
         try {
             const response = await fetch(`https://localhost:7246/api/property/assignProperty`, {
                 method: 'POST',
@@ -115,11 +115,23 @@ const PaperList: React.FC = () => {
                 },
                 body: JSON.stringify({ paperId, propertyId }),
             });
-
+    
             if (!response.ok) {
                 throw new Error('Failed to assign property');
             }
-
+    
+           
+            setPapers(papers.map(paper => {
+                if (paper.id === paperId) {
+                    const newPropertyName = properties.find(prop => prop.id === propertyId)?.propertyName || '';
+                    return {
+                        ...paper,
+                        propertyNames: [...paper.propertyNames, newPropertyName], 
+                    };
+                }
+                return paper;
+            }));
+    
             alert('Property assigned successfully!');
         } catch (error) {
             console.error('Error assigning property:', error);
@@ -179,15 +191,22 @@ const PaperList: React.FC = () => {
 
                             {/* Restock input and button */}
                             <div>
-                                <input
-                                    type="number"
-                                    placeholder="Restock amount"
-                                    value={restockAmount}
-                                    onChange={(e) => setRestockAmount(Number(e.target.value))}
-                                />
-                                <button onClick={() => handleRestock(paper.id, restockAmount)} disabled={paper.discontinued}>
-                                    Restock
-                                </button>
+                            <input
+                                type="number"
+                                placeholder="Restock amount"
+                                value={restockAmount === 0 ? '' : restockAmount} 
+                                onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '') {
+                                    setRestockAmount(0); 
+                                } else {
+                                    setRestockAmount(Number(value));
+                                }
+                                }}
+                            />
+                            <button onClick={() => handleRestock(paper.id, restockAmount)} disabled={paper.discontinued}>
+                                Restock
+                            </button>
                             </div>
                         </li>
                     ))}

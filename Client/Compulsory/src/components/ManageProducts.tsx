@@ -4,20 +4,22 @@ import '../styles/ManageProducts.css';
 
 const ManageProducts: React.FC = () => {
   const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
+  const [price, setPrice] = useState('');
+  const [stock, setStock] = useState('');
   const [discontinued, setDiscontinued] = useState(false);
   
   const [propertyName, setPropertyName] = useState(''); 
   const [properties, setProperties] = useState<any[]>([]); 
+
+  const [refreshPapers, setRefreshPapers] = useState<boolean>(false);
 
   const handleSubmitPaper = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const newProduct = {
       name,
-      price,
-      stock,
+      price : parseFloat(price),
+      stock: parseInt(stock, 10),
       discontinued,
     };
 
@@ -35,10 +37,12 @@ const ManageProducts: React.FC = () => {
       }
 
       setName('');
-      setPrice(0);
-      setStock(0);
+      setPrice('');
+      setStock('');
       setDiscontinued(false);
       alert('Product created successfully!');
+
+      setRefreshPapers(prev => !prev);
     } catch (error) {
       console.error('Error creating product:', error);
       alert('Failed to create product.');
@@ -68,6 +72,7 @@ const ManageProducts: React.FC = () => {
       setPropertyName('');
       alert('Property created successfully!');
       fetchProperties(); 
+      setRefreshPapers(prev => !prev);
     } catch (error) {
       console.error('Error creating property:', error);
       alert('Failed to create property.');
@@ -96,7 +101,7 @@ const ManageProducts: React.FC = () => {
     <div className="manage-products-wrapper">
     <div className="manage-products-container">
       <div className="paper-list-container">
-        <PaperList />
+        <PaperList refresh={refreshPapers} />
       </div>
 
       
@@ -117,20 +122,20 @@ const ManageProducts: React.FC = () => {
           <div>
             <label htmlFor="price">Price:</label>
             <input
-              type="number"
+              type="text"
               id="price"
               value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
+              onChange={(e) => setPrice(e.target.value)}
               required
             />
           </div>
           <div>
             <label htmlFor="stock">Stock:</label>
             <input
-              type="number"
+              type="text"
               id="stock"
               value={stock}
-              onChange={(e) => setStock(Number(e.target.value))}
+              onChange={(e) => setStock(e.target.value)}
               required
             />
           </div>

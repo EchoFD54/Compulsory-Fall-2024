@@ -91,6 +91,10 @@ public class AppService(IAppRepository appRepository) : IAppService{
         return new CustomerDto().FromEntity(customer);
     }
 
+    public void UpdateCustomer(int CustomerId){
+        
+    }
+
     //Order
     public OrderDto CreateOrder(CreateOrderDto createOrderDto){
         var customer = appRepository.GetCustomerById(createOrderDto.CustomerId);

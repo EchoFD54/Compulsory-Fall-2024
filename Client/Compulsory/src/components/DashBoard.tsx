@@ -6,7 +6,7 @@ import { Order } from '../atoms/orderAtom';
 import '../styles/Dashboard.css'
 
 const Dashboard: React.FC = () => {
-  const [customer] = useAtom(customerAtom);
+  const [customer, setCustomer] = useAtom(customerAtom);
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
@@ -36,6 +36,10 @@ const Dashboard: React.FC = () => {
     }
   }, [customer]);
 
+  const handleLogout = () => {
+    setCustomer(null);  
+  };
+
   
 
   if (!customer) {
@@ -58,9 +62,11 @@ const Dashboard: React.FC = () => {
           <Link to="/manage-products">
             <button>Create / Manage Products</button>
           </Link>
-
           <Link to="/manage-orders">
             <button>Manage Orders</button>
+          </Link>
+          <Link to="/login">
+          <button onClick={handleLogout}>Logout</button>
           </Link>
         </div>
     </div>

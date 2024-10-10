@@ -114,6 +114,8 @@ const AdminOrderManagement: React.FC = () => {
                   <p>Order ID: {order.id}</p>
                   <p>Total Amount: ${order.totalAmount.toFixed(2)}</p>
                   <p>Date: {new Date(order.orderDate).toLocaleDateString()}</p>
+
+                  
                   <p>Order Status: 
                     <input
                       type="text"

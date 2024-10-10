@@ -5,10 +5,12 @@ import { customerAtom } from '../atoms/state.ts';
 import { Paper } from '../types/paper';
 import Cart from './Cart.tsx';
 import '../styles/Shopsite.css'
+import { papersAtom } from '../atoms/paperAtom.ts';
 
 
 const ProductList: React.FC = () => {
-  const [papers, setPapers] = useState<Paper[]>([]);
+  const [papers, setPapers] = useAtom(papersAtom);
+  const [properties, setProperties] = useState<any[]>([]); 
   const [filteredPapers, setFilteredPapers] = useState<Paper[]>([]);
   const [cart, setCart] = useAtom(cartAtom);
   const [customer] = useAtom(customerAtom);
@@ -16,15 +18,35 @@ const ProductList: React.FC = () => {
   const [sortOption, setSortOption] = useState('name'); 
 
   useEffect(() => {
-    fetch('https://localhost:7246/api/paper') 
-      .then((response) => response.json())
-      .then((data) => {
-        const availablePapers = data.$values?.filter((paper: Paper) => !paper.discontinued) || [];
-        setPapers(availablePapers); 
-        setFilteredPapers(availablePapers); 
-      })
-      .catch((error) => console.error('Error fetching papers:', error));
+    const fetchPapers = async () => {
+      try {
+        const response = await fetch('https://localhost:7246/api/paper');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        if (data && Array.isArray(data.$values)) {
+          const availablePapers = data.$values
+            .filter((paper: Paper) => !paper.discontinued)
+            .map((paper: any) => ({
+              ...paper,
+              propertyNames: paper.propertyNames ? paper.propertyNames.$values : [] 
+            }));
+          
+          setPapers(availablePapers);
+          setFilteredPapers(availablePapers); 
+        } else {
+          console.error('Fetched data does not have $values as an array:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching papers:', error);
+      }
+    };
+  
+    fetchPapers();
   }, []);
+  
 
   useEffect(() => {
     let results = papers.filter(paper =>
@@ -95,6 +117,18 @@ const ProductList: React.FC = () => {
             ) : (
               <p>Stock: {paper.stock}</p>
             )}
+
+            <h4>Properties:</h4>
+              {paper.propertyNames && paper.propertyNames.length > 0 ? (
+            <div className='shopsite-properties-list'>
+               {paper.propertyNames.map((propertyName: string, index: number) => (
+                <li key={index}>{propertyName}</li>
+                 ))}
+            </div>
+                   ) : (
+               <p>No properties assigned.</p>
+               )}
+
             <button 
               onClick={() => addToCart(paper.id)} 
               disabled={paper.stock <= 0}

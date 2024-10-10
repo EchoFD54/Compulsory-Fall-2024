@@ -21,6 +21,7 @@ public interface IAppRepository{
     public List<Customer> GetAllCustomers();
     public Customer? GetCustomerById(int? customerId);
     public Customer? GetCustomerByEmail(string email);
+    public void UpdateCustomer(Customer customer);
 
     //Properties
     public Property CreateProperty(Property property);
